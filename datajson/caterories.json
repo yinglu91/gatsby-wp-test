@@ -1,0 +1,24 @@
+{
+  "data": {
+    "wpgraphql": {
+      "categories": {
+        "pageInfo": {
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "id": "dGVybTo1",
+            "categoryId": 5,
+            "slug": "awards"
+          },
+          {
+            "id": "dGVybTox",
+            "categoryId": 1,
+            "slug": "uncategorized"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -50,9 +50,9 @@ module.exports = async ({ actions, graphql }) => {
   await fetchPages({ first: 100, after: null }).then(allPosts => {
     const postTemplate = path.resolve(`./src/templates/post.js`);
     allPosts.forEach(post => {
-      console.log(`create page: /post${post.uri}`);
+      console.log(`create page: /blog${post.uri}`);
       createPage({
-        path: `/post${post.uri}`,
+        path: `/blog${post.uri}`,
         component: postTemplate,
         context: post, //  object {id, postId, uri, title}
       });
