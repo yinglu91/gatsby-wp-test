@@ -2,8 +2,8 @@ import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 
-const Page = ({ data }) => {
-  const { title, content } = data.wpgraphql.page;
+const Post = ({ data }) => {
+  const { title, content } = data.wpgraphql.post;
 
   return (
     <Layout>
@@ -13,12 +13,12 @@ const Page = ({ data }) => {
   );
 };
 
-export default Page;
+export default Post;
 
 export const query = graphql`
-  query GET_PAGE($id: ID!) {
+  query GET_POST($id: ID!) {
     wpgraphql {
-      page(id: $id) {
+      post(id: $id) {
         title
         content
       }

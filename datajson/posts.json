@@ -1,0 +1,38 @@
+{
+  "data": {
+    "wpgraphql": {
+      "posts": {
+        "pageInfo": {
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "id": "cG9zdDo4MQ==",
+            "postId": 81,
+            "uri": "/2020/07/19/biology-is-cool/",
+            "title": "Biology is cool"
+          },
+          {
+            "id": "cG9zdDozNA==",
+            "postId": 34,
+            "uri": "/2020/07/11/we-were-voted-best-schools/",
+            "title": "We Were Voted Best Schools"
+          },
+          {
+            "id": "cG9zdDozMA==",
+            "postId": 30,
+            "uri": "/2020/07/11/test-post/",
+            "title": "Test Post"
+          },
+          {
+            "id": "cG9zdDox",
+            "postId": 1,
+            "uri": "/2020/07/11/hello-world/",
+            "title": "Hello world!"
+          }
+        ]
+      }
+    }
+  }
+}
