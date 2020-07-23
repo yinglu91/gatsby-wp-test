@@ -53,7 +53,7 @@ module.exports = async ({ actions, graphql }) => {
       createPage({
         path: `/blog/category/${category.slug}`,
         component: categoryTemplate,
-        context: category, //  object {id, categoryId, slug}
+        context: { id: category.id },
       });
     });
   });

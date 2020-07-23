@@ -54,7 +54,7 @@ module.exports = async ({ actions, graphql }) => {
       createPage({
         path: `/blog${post.uri}`,
         component: postTemplate,
-        context: post, //  object {id, postId, uri, title}
+        context: { id: post.id },
       });
     });
   });
