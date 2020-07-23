@@ -41,7 +41,7 @@ module.exports = async ({ actions, graphql }) => {
       return allCategories;
     });
 
-  // 3. Map over all the pages and call createPage
+  // 3. Loop over all the pages and call createPage
 
   const { createPage } = actions;
 

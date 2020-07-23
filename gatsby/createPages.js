@@ -30,7 +30,7 @@ module.exports = async ({ actions, graphql }) => {
       const { pageInfo, nodes } = data.wpgraphql.pages;
       const { endCursor, hasNextPage } = pageInfo;
 
-      nodes.map(page => {
+      nodes.forEach(page => {
         allPages.push(page);
       });
 
@@ -42,7 +42,7 @@ module.exports = async ({ actions, graphql }) => {
       return allPages;
     });
 
-  // 3. Map over all the pages and call createPage
+  // 3. Loop over all the pages and call createPage
 
   const { createPage } = actions;
 
