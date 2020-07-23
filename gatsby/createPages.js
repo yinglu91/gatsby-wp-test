@@ -49,10 +49,8 @@ module.exports = async ({ actions, graphql }) => {
   // first call fetch pages function
   await fetchPages({ first: 100, after: null }).then(allPages => {
     const pageTemplate = path.resolve(`./src/templates/page.js`);
-    allPages.map(page => {
-      console.log(`create page: ${page.uri}`);
+    allPages.forEach(page => {
       createPage({
-        // path: `${page.uri}`,
         path: page.uri,
         component: pageTemplate,
         context: page, //  object {id, pageId, uri, title}
@@ -62,14 +60,5 @@ module.exports = async ({ actions, graphql }) => {
 };
 
 /*
-create page: /search/
-create page: /past-events/
-create page: /blog/
-create page: /
-create page: /privacy-policy/ying-policy/
-create page: /about-us/our-history/
-create page: /about-us/our-goals/
-create page: /about-us/
-create page: /privacy-policy/
 create page: /sample-page/
 */
