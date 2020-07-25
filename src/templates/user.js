@@ -7,7 +7,7 @@ const UserTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <h1>{name}</h1>
+      <h1>User: {name}</h1>
     </Layout>
   );
 };

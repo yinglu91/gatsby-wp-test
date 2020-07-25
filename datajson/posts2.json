@@ -1,0 +1,112 @@
+{
+  "data": {
+    "wpgraphql": {
+      "posts": {
+        "nodes": [
+          {
+            "id": "cG9zdDo4MQ==",
+            "title": "Biology is cool",
+            "content": "\n<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo ratione ipsam    obcaecati iure molestiae consectetur eaque quis delectus, soluta</p>\n",
+            "uri": "/biology-is-cool/",
+            "author": {
+              "node": {
+                "name": "Ying",
+                "slug": "yinglu91"
+              }
+            },
+            "categories": {
+              "nodes": [
+                {
+                  "name": "Uncategorized",
+                  "slug": "uncategorized"
+                }
+              ]
+            },
+            "tags": {
+              "nodes": [
+                {
+                  "name": "cool",
+                  "slug": "cool"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cG9zdDozNA==",
+            "title": "We Were Voted Best Schools",
+            "content": "\n<p>For the 100th year in a row we are voted #1.</p>\n",
+            "uri": "/we-were-voted-best-schools/",
+            "author": {
+              "node": {
+                "name": "Ying",
+                "slug": "yinglu91"
+              }
+            },
+            "categories": {
+              "nodes": [
+                {
+                  "name": "Awards",
+                  "slug": "awards"
+                }
+              ]
+            },
+            "tags": {
+              "nodes": [
+                {
+                  "name": "school",
+                  "slug": "school"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cG9zdDozMA==",
+            "title": "Test Post",
+            "content": "\n<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo ratione ipsam obcaecati iure molestiae consectetur eaque quis delectus, soluta, sed culpa deserunt, sit velit molestias rerum officia cum dolore at!</p>\n",
+            "uri": "/test-post/",
+            "author": {
+              "node": {
+                "name": "Ying",
+                "slug": "yinglu91"
+              }
+            },
+            "categories": {
+              "nodes": [
+                {
+                  "name": "Awards",
+                  "slug": "awards"
+                }
+              ]
+            },
+            "tags": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "cG9zdDox",
+            "title": "Hello world!",
+            "content": "\n<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>\n",
+            "uri": "/hello-world/",
+            "author": {
+              "node": {
+                "name": "Ying",
+                "slug": "yinglu91"
+              }
+            },
+            "categories": {
+              "nodes": [
+                {
+                  "name": "Uncategorized",
+                  "slug": "uncategorized"
+                }
+              ]
+            },
+            "tags": {
+              "nodes": []
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+query MyQuery {
+  wpgraphql {
+    posts {
+      nodes {
+        id
+        title
+        content
+        uri
+        author {
+          node {
+            name
+            slug
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+        tags {
+          nodes {
+            name
+            slug
+          }
+        }
+      }
+    }
+  }
+}
