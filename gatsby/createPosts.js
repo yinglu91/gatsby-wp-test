@@ -1,4 +1,5 @@
 const path = require(`path`);
+const { node } = require("prop-types");
 
 // export default
 module.exports = async ({ actions, graphql }) => {
@@ -23,31 +24,57 @@ module.exports = async ({ actions, graphql }) => {
   `;
 
   const allPosts = [];
+  const blogPages = [];
+  let pageNumber = 0;
 
-  // 2. Create a function for getting pages
-  const fetchPages = async vairables =>
+  // 2. Create a function for getting posts
+  const fetchPosts = async vairables =>
     await graphql(GET_POSTS, vairables).then(({ data }) => {
       const { pageInfo, nodes } = data.wpgraphql.posts;
       const { endCursor, hasNextPage } = pageInfo;
+
+      const nodeIds = nodes.map(post => post.postId);
+      const postsTemplate = path.resolve(`./src/templates/posts.js`);
+      const postsPath = !vairables.after
+        ? `/blog/`
+        : `/blog/page/${pageNumber}`;
+
+      blogPages[pageNumber] = {
+        path: postsPath,
+        component: postsTemplate,
+        context: {
+          ids: nodeIds,
+          pageNumber: pageNumber,
+          hasNextPage: hasNextPage,
+        },
+        ids: nodeIds,
+      };
 
       nodes.forEach(post => {
         allPosts.push(post);
       });
 
       if (hasNextPage) {
-        return fetchPages({ first: vairables.first, after: endCursor });
-        // due to wp default: 10 pages, max pages: 100
+        pageNumber++;
+        return fetchPosts({ first: vairables.first, after: endCursor });
+        // due to wp default: 10 posts, max posts: 100
       }
 
       return allPosts;
     });
 
-  // 3. Loop over all the pages and call createPage
+  // 3. Loop over all the posts and call createPage
 
   const { createPage } = actions;
 
   // first call fetch pages function
-  await fetchPages({ first: 100, after: null }).then(allPosts => {
+  await fetchPosts({ first: 2, after: null }).then(allPosts => {
+    blogPages.map(page => {
+      console.log(`create post archive: ${page.path}`);
+
+      createPage(page);
+    });
+
     const postTemplate = path.resolve(`./src/templates/post.js`);
     allPosts.forEach(post => {
       console.log(`create page: /blog${post.uri}`);
