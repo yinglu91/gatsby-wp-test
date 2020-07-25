@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
+import { createLocalLink } from "../utils";
 
 const getData = graphql`
   fragment MenuFields on WPGraphQL_MenuItem {
@@ -43,7 +44,7 @@ const MenuItem = ({ item }) => {
 
   return (
     <li key={item.id}>
-      <Link to={item.url}>{item.label}</Link>
+      <Link to={createLocalLink(item.url)}>{item.label}</Link>
       {hasChild && <ChildMenu item={item} />}
     </li>
   );
@@ -54,7 +55,7 @@ const MainMenu = () => {
   const menu = data.wpgraphql.menuItems.nodes;
 
   return (
-    <nav>
+    <nav className="main-menu">
       <ul>
         {menu.map(item => (
           <MenuItem item={item} />
