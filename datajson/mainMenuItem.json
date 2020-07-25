@@ -1,0 +1,48 @@
+{
+  "data": {
+    "wpgraphql": {
+      "menuItems": {
+        "nodes": [
+          {
+            "id": "bmF2X21lbnVfaXRlbTo5MQ==",
+            "label": "Home",
+            "url": "http://fictional-university.local",
+            "childItems": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "bmF2X21lbnVfaXRlbTo5Mg==",
+            "label": "Blog",
+            "url": "http://fictional-university.local/blog/",
+            "childItems": {
+              "nodes": [
+                {
+                  "id": "bmF2X21lbnVfaXRlbToyMg==",
+                  "label": "Sample Page",
+                  "url": "http://fictional-university.local/sample-page/"
+                }
+              ]
+            }
+          },
+          {
+            "id": "bmF2X21lbnVfaXRlbToyMg==",
+            "label": "Sample Page",
+            "url": "http://fictional-university.local/sample-page/",
+            "childItems": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "bmF2X21lbnVfaXRlbToyMw==",
+            "label": "Cookie Policy",
+            "url": "http://fictional-university.local/privacy-policy/ying-policy/",
+            "childItems": {
+              "nodes": []
+            }
+          }
+        ]
+      }
+    }
+  }
+}

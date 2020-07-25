@@ -1,0 +1,27 @@
+
+
+fragment MenuFields on WPGraphQL_MenuItem {
+  id
+  label
+  url
+}
+
+query Get_Menu_Items {
+  wpgraphql {
+    menuItems {
+      nodes {
+        id
+        label
+        url
+        childItems {
+          nodes {
+            id
+            label
+            url
+          }
+        }
+      }
+    }
+  }
+}
+
