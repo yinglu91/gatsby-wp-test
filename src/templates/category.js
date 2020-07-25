@@ -7,7 +7,7 @@ const CategoryTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <h1>{name}</h1>
+      <h1>Category: {name}</h1>
     </Layout>
   );
 };

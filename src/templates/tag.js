@@ -7,7 +7,7 @@ const TagTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <h1>{name}</h1>
+      <h1>Tag: {name}</h1>
     </Layout>
   );
 };

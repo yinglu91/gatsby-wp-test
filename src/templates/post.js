@@ -8,10 +8,34 @@ const Post = ({ data }) => {
   return (
     <Layout>
       <h1>{title}</h1>
-      <ul>
+      <ul className="meta">
         <li>
           Author:{" "}
           <Link to={`/user/${author.node.slug}`}>{author.node.name}</Link>
+        </li>
+
+        <li>
+          {` // `}
+          Category
+          <ul>
+            {categories.nodes.map(cat => (
+              <li>
+                <Link to={`/blog/category/${cat.slug}`}>{cat.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </li>
+
+        <li>
+          {` // `}
+          Tag
+          <ul>
+            {tags.nodes.map(tag => (
+              <li>
+                <Link to={`/blog/tag/${tag.slug}`}>{tag.name}</Link>
+              </li>
+            ))}
+          </ul>
         </li>
       </ul>
       <div dangerouslySetInnerHTML={{ __html: content }}></div>
