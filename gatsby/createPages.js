@@ -2,6 +2,8 @@ const path = require(`path`);
 
 // export default
 module.exports = async ({ actions, graphql }) => {
+  const { createPage } = actions;
+
   // 1. Setup our query
   const GET_PAGES = `
     query GET_PAGES($first: Int, $after: String) {
@@ -25,36 +27,32 @@ module.exports = async ({ actions, graphql }) => {
   const allPages = [];
 
   // 2. Create a function for getting pages
-  const fetchPages = async vairables =>
-    await graphql(GET_PAGES, vairables).then(({ data }) => {
-      const { pageInfo, nodes } = data.wpgraphql.pages;
-      const { endCursor, hasNextPage } = pageInfo;
+  const fetchPages = async vairables => {
+    const response = await graphql(GET_PAGES, vairables);
 
-      nodes.forEach(page => {
-        allPages.push(page);
-      });
+    const { pageInfo, nodes } = response.data.wpgraphql.pages;
+    const { endCursor, hasNextPage } = pageInfo;
 
-      if (hasNextPage) {
-        return fetchPages({ first: vairables.first, after: endCursor });
-        // due to wp default: 10 pages, max pages: 100
-      }
-
-      return allPages;
+    nodes.forEach(page => {
+      allPages.push(page);
     });
+
+    if (hasNextPage) {
+      return fetchPages({ first: vairables.first, after: endCursor });
+      // due to wp default: 10 pages, max pages: 100
+    }
+  };
 
   // 3. Loop over all the pages and call createPage
 
-  const { createPage } = actions;
-
   // first call fetch pages function
-  await fetchPages({ first: 100, after: null }).then(allPages => {
-    const pageTemplate = path.resolve(`./src/templates/page.js`);
-    allPages.forEach(page => {
-      createPage({
-        path: page.uri,
-        component: pageTemplate,
-        context: { id: page.id },
-      });
+  await fetchPages({ first: 100, after: null });
+
+  allPages.forEach(page => {
+    createPage({
+      path: page.uri,
+      component: path.resolve(`./src/templates/page.js`),
+      context: { id: page.id },
     });
   });
 };

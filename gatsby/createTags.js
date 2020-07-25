@@ -23,38 +23,36 @@ module.exports = async ({ actions, graphql }) => {
 
   const allTags = [];
 
-  // 2. Create a function for getting pages
-  const fetchPages = async vairables =>
-    await graphql(GET_TAGS, vairables).then(({ data }) => {
-      const { pageInfo, nodes } = data.wpgraphql.tags;
-      const { endCursor, hasNextPage } = pageInfo;
+  // 2. Create a function for getting tags
+  const fetchTags = async vairables => {
+    const response = await graphql(GET_TAGS, vairables);
 
-      nodes.forEach(tag => {
-        allTags.push(tag);
-      });
+    const { pageInfo, nodes } = response.data.wpgraphql.tags;
+    const { endCursor, hasNextPage } = pageInfo;
 
-      if (hasNextPage) {
-        return fetchPages({ first: vairables.first, after: endCursor });
-        // due to wp default: 10 pages, max pages: 100
-      }
-
-      return allTags;
+    nodes.forEach(tag => {
+      allTags.push(tag);
     });
 
-  // 3. Loop over all the pages and call createPage
+    if (hasNextPage) {
+      return fetchTags({ first: vairables.first, after: endCursor });
+      // due to wp default: 10 tags, max tags: 100
+    }
+  };
+
+  // 3. Loop over all the tags and call createPage
 
   const { createPage } = actions;
 
-  // first call fetch pages function
-  await fetchPages({ first: 100, after: null }).then(allTags => {
-    const tagTemplate = path.resolve(`./src/templates/tag.js`);
-    allTags.forEach(tag => {
-      console.log(`create page: /blog/tag/${tag.slug}`);
-      createPage({
-        path: `/blog/tag/${tag.slug}`,
-        component: tagTemplate,
-        context: { id: tag.id },
-      });
+  // first call fetch tags function
+  await fetchTags({ first: 100, after: null });
+
+  allTags.forEach(tag => {
+    console.log(`create page: /blog/tag/${tag.slug}`);
+    createPage({
+      path: `/blog/tag/${tag.slug}`,
+      component: path.resolve(`./src/templates/tag.js`),
+      context: { id: tag.id },
     });
   });
 };

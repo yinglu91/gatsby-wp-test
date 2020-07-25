@@ -2,6 +2,8 @@ const path = require(`path`);
 
 // export default
 module.exports = async ({ actions, graphql }) => {
+  const { createPage } = actions;
+
   // 1. Setup our query
   const GET_CATEGORIES = `
     query GET_PAGES($first: Int) {
@@ -23,38 +25,35 @@ module.exports = async ({ actions, graphql }) => {
 
   const allCategories = [];
 
-  // 2. Create a function for getting pages
-  const fetchPages = async vairables =>
-    await graphql(GET_CATEGORIES, vairables).then(({ data }) => {
-      const { pageInfo, nodes } = data.wpgraphql.categories;
-      const { endCursor, hasNextPage } = pageInfo;
+  // 2. Create a function for getting categories
+  const fetchCategories = async vairables => {
+    const response = await graphql(GET_CATEGORIES, vairables);
 
-      nodes.forEach(category => {
-        allCategories.push(category);
-      });
+    const { pageInfo, nodes } = response.data.wpgraphql.categories;
+    const { endCursor, hasNextPage } = pageInfo;
 
-      if (hasNextPage) {
-        return fetchPages({ first: vairables.first, after: endCursor });
-        // due to wp default: 10 pages, max pages: 100
-      }
-
-      return allCategories;
+    nodes.forEach(category => {
+      allCategories.push(category);
     });
 
-  // 3. Loop over all the pages and call createPage
+    if (hasNextPage) {
+      return fetchCategories({ first: vairables.first, after: endCursor });
+      // due to wp default: 10 categories, max categories: 100
+    }
+  };
 
-  const { createPage } = actions;
+  // 3. Loop over all the categories and call createPage
 
-  // first call fetch pages function
-  await fetchPages({ first: 100, after: null }).then(allCategories => {
-    const categoryTemplate = path.resolve(`./src/templates/category.js`);
-    allCategories.forEach(category => {
-      console.log(`create page: /blog/category/${category.slug}`);
-      createPage({
-        path: `/blog/category/${category.slug}`,
-        component: categoryTemplate,
-        context: { id: category.id },
-      });
+  // first call fetch categories function
+  await fetchCategories({ first: 100, after: null });
+
+  allCategories.forEach(category => {
+    console.log(`create page: /blog/category/${category.slug}`);
+
+    createPage({
+      path: `/blog/category/${category.slug}`,
+      component: path.resolve(`./src/templates/category.js`),
+      context: { id: category.id },
     });
   });
 };

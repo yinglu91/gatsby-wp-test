@@ -2,6 +2,8 @@ const path = require(`path`);
 
 // export default
 module.exports = async ({ actions, graphql }) => {
+  const { createPage } = actions;
+
   // 1. Setup our query
   const GET_USERS = `
     query GET_USERS($first: Int) {
@@ -23,38 +25,34 @@ module.exports = async ({ actions, graphql }) => {
 
   const allUsers = [];
 
-  // 2. Create a function for getting pages
-  const fetchPages = async vairables =>
-    await graphql(GET_USERS, vairables).then(({ data }) => {
-      const { pageInfo, nodes } = data.wpgraphql.users;
-      const { endCursor, hasNextPage } = pageInfo;
+  // 2. Create a function for getting users
+  const fetchPages = async vairables => {
+    const response = await graphql(GET_USERS, vairables);
 
-      nodes.forEach(user => {
-        allUsers.push(user);
-      });
+    const { pageInfo, nodes } = response.data.wpgraphql.users;
+    const { endCursor, hasNextPage } = pageInfo;
 
-      if (hasNextPage) {
-        return fetchPages({ first: vairables.first, after: endCursor });
-        // due to wp default: 10 pages, max pages: 100
-      }
-
-      return allUsers;
+    nodes.forEach(user => {
+      allUsers.push(user);
     });
 
-  // 3. Loop over all the pages and call createPage
+    if (hasNextPage) {
+      return fetchPages({ first: vairables.first, after: endCursor });
+      // due to wp default: 10 users, max users: 100
+    }
+  };
 
-  const { createPage } = actions;
+  // 3. Loop over all the users who has posts and call createPage
 
-  // first call fetch pages function
-  await fetchPages({ first: 100, after: null }).then(allUsers => {
-    const userTemplate = path.resolve(`./src/templates/user.js`);
-    allUsers.forEach(user => {
-      console.log(`create page: /user/${user.slug}`);
-      createPage({
-        path: `/user/${user.slug}`,
-        component: userTemplate,
-        context: { id: user.id },
-      });
+  // first call fetch users function
+  await fetchPages({ first: 100, after: null });
+
+  allUsers.forEach(user => {
+    console.log(`create page: /user/${user.slug}`);
+    createPage({
+      path: `/user/${user.slug}`,
+      component: path.resolve(`./src/templates/user.js`),
+      context: { id: user.id },
     });
   });
 };
