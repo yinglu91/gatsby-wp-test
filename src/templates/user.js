@@ -2,12 +2,14 @@ import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import ArchivePosts from "../components/archivePosts";
+import SEO from "../components/seo";
 
 const UserTemplate = ({ data }) => {
   const { name, description, posts } = data.wpgraphql.user;
 
   return (
     <Layout>
+      <SEO title={name} />
       <h1>User: {name}</h1>
       <p>{description}</p>
       <ArchivePosts posts={posts} />
