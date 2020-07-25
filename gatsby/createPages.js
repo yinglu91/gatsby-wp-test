@@ -18,6 +18,7 @@ module.exports = async ({ actions, graphql }) => {
             pageId
             uri
             title
+            isFrontPage
           }
         }
       }
@@ -49,6 +50,10 @@ module.exports = async ({ actions, graphql }) => {
   await fetchPages({ first: 100, after: null });
 
   allPages.forEach(page => {
+    if (page.isFrontPage) {
+      page.uri = "/";
+    }
+
     createPage({
       path: page.uri,
       component: path.resolve(`./src/templates/page.js`),
