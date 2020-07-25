@@ -1,13 +1,15 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
+import ArchivePosts from "../components/archivePosts";
 
 const TagTemplate = ({ data }) => {
-  const { name } = data.wpgraphql.tag;
+  const { name, posts } = data.wpgraphql.tag;
 
   return (
     <Layout>
       <h1>Tag: {name}</h1>
+      <ArchivePosts posts={posts} />
     </Layout>
   );
 };
@@ -21,6 +23,14 @@ export const query = graphql`
         id
         name
         slug
+        posts {
+          nodes {
+            id
+            postId
+            title(format: RENDERED)
+            slug
+          }
+        }
       }
     }
   }

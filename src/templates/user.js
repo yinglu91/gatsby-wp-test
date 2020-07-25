@@ -1,13 +1,16 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
+import ArchivePosts from "../components/archivePosts";
 
 const UserTemplate = ({ data }) => {
-  const { name } = data.wpgraphql.user;
+  const { name, description, posts } = data.wpgraphql.user;
 
   return (
     <Layout>
       <h1>User: {name}</h1>
+      <p>{description}</p>
+      <ArchivePosts posts={posts} />
     </Layout>
   );
 };
@@ -20,6 +23,19 @@ export const query = graphql`
       user(id: $id) {
         id
         name
+        description
+        avatar {
+          url
+          size
+        }
+        posts {
+          nodes {
+            id
+            postId
+            title(format: RENDERED)
+            slug
+          }
+        }
       }
     }
   }

@@ -18,6 +18,7 @@ module.exports = async ({ actions, graphql }) => {
             id
             postId
             uri
+            slug
             title
           }
         }
@@ -73,9 +74,9 @@ module.exports = async ({ actions, graphql }) => {
   });
 
   allPosts.forEach(post => {
-    console.log(`create page: /blog${post.uri}`);
+    console.log(`create page: /blog/${post.slug}`);
     createPage({
-      path: `/blog${post.uri}`,
+      path: `/blog/${post.slug}`,
       component: path.resolve(`./src/templates/post.js`),
       context: { id: post.id },
     });

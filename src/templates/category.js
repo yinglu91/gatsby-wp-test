@@ -1,13 +1,15 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
+import ArchivePosts from "../components/archivePosts";
 
 const CategoryTemplate = ({ data }) => {
-  const { name } = data.wpgraphql.category;
+  const { name, posts } = data.wpgraphql.category;
 
   return (
     <Layout>
       <h1>Category: {name}</h1>
+      <ArchivePosts posts={posts} />
     </Layout>
   );
 };
@@ -18,13 +20,29 @@ export const query = graphql`
   query GET_Category($id: ID!) {
     wpgraphql {
       category(id: $id) {
+        id
         name
+        slug
+        posts {
+          nodes {
+            id
+            postId
+            title(format: RENDERED)
+            slug
+          }
+        }
       }
     }
   }
 `;
 
 /*
+          {
+            "id": "dGVybTo1"
+          },
+          {
+            "id": "dGVybTox"
+          }
 {
   "data": {
     "wpgraphql": {
