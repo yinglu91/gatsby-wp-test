@@ -12,7 +12,7 @@ const Posts = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <SEO title="Posts" />
+      <SEO title="Blog Archive" />
       <h1>Blog Archive {currentPage}</h1>
       {nodes.map(post => (
         <h2 key={post.id}>{post.title}</h2>
